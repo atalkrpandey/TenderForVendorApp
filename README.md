@@ -1,2 +1,2 @@
 # abashed-store-5188
-A tender app for venders.
+A Tender Management App where User can store his whole tenders detail in a proper way and perform operation on that. It is a console based application.
