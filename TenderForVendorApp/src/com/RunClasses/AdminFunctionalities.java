@@ -1,15 +1,18 @@
 package com.RunClasses;
 
+import java.util.List;
 import java.util.Scanner;
 
+import com.BeanClasses.TenderBean;
 import com.BeanClasses.VendorBean;
-import com.BeanClasses.VendorExpection;
 import com.DaoImpl.DaoIntForAdmin;
 import com.DaoImpl.ImplOfAdminInf;
+import com.Exceptions.TenderException;
+import com.Exceptions.VendorException;
 
 public class AdminFunctionalities {
 
-	 public void getFunctions() {
+	 public void getFunctions()  {
 		 
 		 Scanner sc = new Scanner(System.in);
 		 
@@ -23,12 +26,15 @@ public class AdminFunctionalities {
 		 System.out.println("7. Exit.");
 		 
 		 int res = sc.nextInt();
+		 sc.nextLine();
 		 
 		  DaoIntForAdmin ad = new ImplOfAdminInf();
 		 switch(res) {
 		 
 		
 		 case 1 : 
+			 
+			 
 			 System.out.println("Please fill All the Details of Vendor..");
 			 System.out.println("Vendor Name..");
 			 String name = sc.nextLine();
@@ -39,23 +45,71 @@ public class AdminFunctionalities {
 			 System.out.println("Vendor New Password...");
 			 String pass = sc.nextLine();
 			 VendorBean v1 = new VendorBean(0,name,email,phone,pass);
-			    
+			  
 			 try {
 				String mass = ad.addNewVendor(v1);
 				if(mass!=null) {
 					System.out.println(mass);
+					AdminFunctionalities.Choise();
 				}
-			} catch (VendorExpection e) {
+			} catch (VendorException e) {
+				// TODO Auto-generated catch block
+			   System.out.println(e.getMessage());
+			   AdminFunctionalities.Choise();
+			   
+			}
+			  break;
+			  
+			  
+		 case 2 : 
+			 
+			 try {
+				List<VendorBean> list = ad.getAllVendors();
+				  System.out.println("Here, all the list of Vendors in system...");
+			  for(VendorBean v : list) {
+				
+				  System.out.println("Vendor Id -> "+v.getVid());
+				  System.out.println("Vendor Name -> "+v.getVname());
+				  System.out.println("Vendor Email Id -> "+v.getVemail());
+				  System.out.println("Vendor Phone -> "+v.getVphone());
+				  System.out.println("Vendor Password -> "+v.getVpass());
+				  System.out.println("---------------------------------");
+			  }
+			} catch (VendorException e) {
+				// TODO Auto-generated catch block
+			    System.out.println(e.getMessage());
+			}
+			 
+			 AdminFunctionalities.Choise();
+			 
+			 break;
+			 
+			 
+			 
+		 case 3 : 
+			 
+			 System.out.println("Please fill All the Details of Tender..");
+			 System.out.println("Tender Name..");
+			 String tname = sc.nextLine();
+			 System.out.println("Tender Amount...");
+			 int amount = sc.nextInt();
+			 sc.nextLine();
+			
+			 TenderBean t1 = new TenderBean(tname,amount);
+			  
+			 try {
+				String mass = ad.createNewTender(t1);
+				if(mass!=null) {
+					System.out.println(mass);
+					AdminFunctionalities.Choise();
+				}
+			} catch (TenderException e) {
 				// TODO Auto-generated catch block
 			   System.out.println(e.getMessage());
 			   AdminFunctionalities.Choise();
 			   
 			}
 			 
-			 break;
-		 case 2 :  
-			 break;
-		 case 3 :  
 			 break;
 		 case 4 :  
 			 break;
@@ -64,7 +118,7 @@ public class AdminFunctionalities {
 	     case 6 :  
 			 break;
 	     case 7 :
-	    	 System.out.println("Thanks visiting, Have a nice day..");
+	    	 System.out.println("Thanks visiting us, Have a nice day..");
 	    	 break;
 		 }
 	 }
@@ -78,7 +132,7 @@ public class AdminFunctionalities {
 			 AdminFunctionalities ad = new AdminFunctionalities();
 			 ad.getFunctions();;
 			}else {
-				System.out.println("Thanks visiting, Have a nice day..");
+				System.out.println("Thanks visiting us, Have a nice day..");
 			}
 			sc.close();
 	 }

@@ -9,7 +9,7 @@ public class Main {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Wellcome to you @ India's one of the best tendering app TenderForVendor..");
+		System.out.println("Welcome to you @ India's one of the best tendering app TenderForVendor..");
 		System.out.println("Please select one of the option like for Admin login --> 1..");
 		System.out.println("1. Admin login");
 		System.out.println("2. Vender login");
