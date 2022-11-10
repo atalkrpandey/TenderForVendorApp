@@ -7,9 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.BeanClasses.BidBean;
+import com.BeanClasses.BidTenderDTO;
 import com.BeanClasses.TenderBean;
 import com.BeanClasses.VendorBean;
 import com.Exceptions.AdminSignInException;
+import com.Exceptions.BidException;
 import com.Exceptions.TenderException;
 import com.Exceptions.VendorException;
 import com.Utility.DbUtil;
@@ -110,7 +113,7 @@ try(Connection conn = DbUtil.provideConnection()){
 					
 					PreparedStatement ps = conn.prepareStatement("insert into tenders(tendername,tenderamount) values(?,?)");
 					ps.setString(1, t1.getTname());
-					ps.setInt(2, t1.getTid());
+					ps.setInt(2, t1.getTamount());
 					
 				    int re = ps.executeUpdate();
 				    if(re>0) {
@@ -125,6 +128,171 @@ try(Connection conn = DbUtil.provideConnection()){
 				}
 				
 				return mass;
+	}
+
+	@Override
+	public List<TenderBean> getAllTenders() throws TenderException {
+		List<TenderBean> list = new ArrayList<>();
+		
+		try(Connection conn = DbUtil.provideConnection()){
+					
+					PreparedStatement ps = conn.prepareStatement("select * from tenders");
+				     
+					ResultSet rs = ps.executeQuery();
+					
+					while(rs.next()) {
+					 int id = rs.getInt("tenderid");
+					 String name = rs.getString("tendername");
+					 int amount = rs.getInt("tenderamount");
+					 boolean status = rs.getBoolean("status");
+					 int bidid = rs.getInt("bidid");
+					 int venderid = rs.getInt("venderid");
+					
+					 TenderBean vb = new TenderBean(name,amount);
+					 vb.setTid(id);
+					 vb.setBidid(bidid);
+					 vb.setStatus(status);
+					 vb.setVendorid(venderid);
+					 list.add(vb);
+					 
+					}
+					if(list.size()==0) {
+						throw new TenderException("Any Record not found..");
+					}
+					
+				}catch(SQLException e) {
+//					throw new AdminSignInException(e.getMessage());
+					throw new TenderException(e.getMessage());
+				}
+				
+				return list;
+	}
+
+	@Override
+	public List<BidBean> getBidsOfTender(int bid) throws BidException {
+List<BidBean> list = new ArrayList<>();
+		
+		try(Connection conn = DbUtil.provideConnection()){
+					
+					PreparedStatement ps = conn.prepareStatement("select * from Bids where tenderID = ?");
+					ps.setInt(1, bid);
+				     
+					ResultSet rs = ps.executeQuery();
+					
+					while(rs.next()) {
+					 int id = rs.getInt("bidid");
+					
+					 int amount = rs.getInt("bidamount");
+					 String status = rs.getString("bidstatus");
+					 int tdid = rs.getInt("tenderid");
+					 int venderid = rs.getInt("vendorid");
+					 
+					 
+					 BidBean vb = new BidBean(id,amount,status,tdid,venderid);
+					
+					 list.add(vb);
+					 
+					}
+					if(list.size()==0) {
+						throw new BidException("Any Record not found..");
+					}
+					
+				}catch(SQLException e) {
+//					throw new AdminSignInException(e.getMessage());
+					throw new BidException(e.getMessage());
+				}
+				
+				return list;
+	}
+
+	@Override
+	public BidTenderDTO assignVendor(int tenderid) throws TenderException {
+		BidTenderDTO bt = null;
+		int vendorid;
+		int bidid;
+		int bamount;
+		int tamount;
+		String tname;
+		try(Connection conn = DbUtil.provideConnection()) {
+			
+			PreparedStatement ps = conn.prepareStatement("select vendorid, bidid,min(bidamount) from bids");
+			
+			ResultSet rs =  ps.executeQuery();
+			if(rs.next()) {
+				vendorid = rs.getInt("vendorid");
+				bidid = rs.getInt("bidid");
+				bamount = rs.getInt("min(bidamount)");
+			
+				try(Connection conn1 = DbUtil.provideConnection()) {
+					
+					PreparedStatement ps1 = conn.prepareStatement("update tenders set venderid=?,bidid=?,status=true where tenderid=?");
+					ps1.setInt(1, vendorid);
+					ps1.setInt(2, bidid);
+					ps1.setInt(3, tenderid);
+					
+					int re = ps1.executeUpdate();
+					
+					if(re>0) {
+						
+						try(Connection conn2 = DbUtil.provideConnection()) {
+							
+							PreparedStatement ps3 = conn2.prepareStatement("select * from tenders where tenderid=?");
+							ps3.setInt(1, tenderid);
+							
+						ResultSet rs3 =	ps3.executeQuery();
+						if(rs3.next()) {
+							tamount = rs3.getInt("tenderamount");
+							tname = rs3.getString("tendername");
+							bt = new BidTenderDTO(tenderid,tname,bidid,vendorid,bamount,tamount);
+							
+							try(Connection con = DbUtil.provideConnection()) {
+								
+								
+								
+								PreparedStatement pd = conn2.prepareStatement("update bids set bidstatus = 'selected' where bidid!=?");
+								pd.setInt(1,bidid);
+								pd.executeUpdate();
+                                try(Connection conn4 = DbUtil.provideConnection()) {
+                                	PreparedStatement pd1 = conn4.prepareStatement("update bids set bidstatus = 'Rejected' where bidid!=?");
+    								pd1.setInt(1,bidid);
+    								pd1.executeUpdate();	
+								} catch (SQLException e) {
+									// TODO: handle exception
+									throw new TenderException(e.getMessage());
+								}
+								
+							} catch (Exception e) {
+								// TODO: handle exception
+								throw new TenderException(e.getMessage());
+							}
+							
+						}
+							
+						} catch (SQLException e) {
+							// TODO: handle exception
+							throw new TenderException(e.getMessage());
+						}
+					}else {
+						throw new TenderException("This Tender Id not found In the system...");
+					}
+					
+				} catch (SQLException e) {
+					// TODO: handle exception
+					throw new TenderException(e.getMessage());
+				}
+				
+			}else {
+				throw new TenderException("No Any bid application in the system...");
+			}
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new TenderException(e.getMessage());
+		}
+		
+		
+		
+		return bt;
 	}
 
 }

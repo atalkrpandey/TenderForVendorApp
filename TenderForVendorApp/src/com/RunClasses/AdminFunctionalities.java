@@ -3,10 +3,13 @@ package com.RunClasses;
 import java.util.List;
 import java.util.Scanner;
 
+import com.BeanClasses.BidBean;
+import com.BeanClasses.BidTenderDTO;
 import com.BeanClasses.TenderBean;
 import com.BeanClasses.VendorBean;
 import com.DaoImpl.DaoIntForAdmin;
 import com.DaoImpl.ImplOfAdminInf;
+import com.Exceptions.BidException;
 import com.Exceptions.TenderException;
 import com.Exceptions.VendorException;
 
@@ -27,7 +30,7 @@ public class AdminFunctionalities {
 		 
 		 int res = sc.nextInt();
 		 sc.nextLine();
-		 
+		  
 		  DaoIntForAdmin ad = new ImplOfAdminInf();
 		 switch(res) {
 		 
@@ -111,13 +114,103 @@ public class AdminFunctionalities {
 			}
 			 
 			 break;
-		 case 4 :  
+			 
+			 
+		 case 4 : 
+			 
+			 try {
+					List<TenderBean> list = ad.getAllTenders();
+					  System.out.println("Here, all the list of Tenders in system...");
+				  for(TenderBean v : list) {
+					
+					  System.out.println("Tender Id -> "+v.getTid());        
+					  System.out.println("Tender Name -> "+v.getTname());
+					  System.out.println("Tender Amount -> "+v.getTamount());
+					  if(v.isStatus()) {
+						  System.out.println("Tender status -> Assigned");  
+					  }else {
+						  System.out.println("Tender status -> Pending"); 
+					  }
+					 if(v.getBidid()==0) {
+						 System.out.println("Tender final bid --> NA");
+						 System.out.println("Vender Id who assigned for tender --> NA");
+					 }else {
+						 System.out.println("Tender final bid Id --> "+v.getBidid());
+						 System.out.println("Vender Id who assigned for tender --> "+v.getVendorid());
+					 }
+					  System.out.println("---------------------------------");
+				  }
+				} catch (TenderException e) {
+					// TODO Auto-generated catch block
+				    System.out.println(e.getMessage());
+				}
+				 
+				 AdminFunctionalities.Choise();
+			 
+			 
 			 break;
+			 
+			 
 		 case 5 :  
+			 
+			  System.out.println("Plese put the TenderId for which you want to find the bids..");
+			  int tid = sc.nextInt();
+			 
+			 try {
+					List<BidBean> list = ad.getBidsOfTender(tid);
+					System.out.println("Here, all the list of Bids which is bidded for Tender ->"+tid);
+				  for(BidBean v : list) {
+					
+					  System.out.println("Bid Id -> "+v.getBid());        
+					  
+					  System.out.println("Bid Amount -> "+v.getBamount());
+					  if(v.getBstatus()!=null) {
+						  System.out.println("Bid status -> Selected");  
+					  }else {
+						  System.out.println("Bid status -> Pending"); 
+					  }
+					
+						 System.out.println("Tender Id of Bid --> "+v.getTid());
+						 System.out.println("Vender Id of Bid -->"+v.getVid());
+					
+					  System.out.println("---------------------------------");
+				  }
+				} catch (BidException e) {
+					// TODO Auto-generated catch block
+				    System.out.println(e.getMessage());
+				}
+				 
+				 AdminFunctionalities.Choise();
+			 
 			 break;
-	     case 6 :  
+			 
+			 
+	     case 6 : 
+	    	 
+	    	 System.out.println("Please put Vender Id for which you want to assign bid...");
+	    	 int id = sc.nextInt();
+			try {
+				BidTenderDTO bt = ad.assignVendor(id);
+				System.out.println("Tender Assigned successfully. All details releted to that are here...");
+				System.out.println("Tender Id --> "+bt.getTenderid());
+				System.out.println("Tender Name --> "+bt.getTname());
+				System.out.println("Tender Amount --> "+bt.getTamount());
+				System.out.println("Allotted Bid Id --> "+bt.getBidid());
+				System.out.println("Selected Bid Amount --> "+bt.getBidamount());
+				System.out.println("Allotted Vendor Id --> "+bt.getVendorid());
+			} catch (TenderException e) {
+				// TODO Auto-generated catch block
+				  System.out.println(e.getMessage());
+			}
+	    	 
+			 AdminFunctionalities.Choise();
+			 
 			 break;
+			 
+			 
+			 
 	     case 7 :
+	    	 
 	    	 System.out.println("Thanks visiting us, Have a nice day..");
 	    	 break;
 		 }
