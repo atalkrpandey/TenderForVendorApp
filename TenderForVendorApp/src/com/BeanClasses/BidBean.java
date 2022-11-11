@@ -20,6 +20,15 @@ public class BidBean {
 		this.tid = tid;
 		this.vid = vid;
 	}
+	
+	public BidBean(int bamount, int tid, int vid) {
+		super();
+		
+		this.bamount = bamount;
+	
+		this.tid = tid;
+		this.vid = vid;
+	}
 
 	public int getBid() {
 		return bid;

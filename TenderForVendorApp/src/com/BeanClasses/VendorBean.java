@@ -20,6 +20,14 @@ public class VendorBean {
 		this.vphone = vphone;
 		this.vpass = vpass;
 	}
+  
+	public VendorBean( String vname, String vpass) {
+		super();
+		
+		this.vname = vname;
+		
+		this.vpass = vpass;
+	}
 
 	public int getVid() {
 		return vid;

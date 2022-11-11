@@ -1,5 +1,6 @@
 package com.RunClasses;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ import com.BeanClasses.BidBean;
 import com.BeanClasses.BidTenderDTO;
 import com.BeanClasses.TenderBean;
 import com.BeanClasses.VendorBean;
+import com.ColorAndModel.TableModelForBidTender;
 import com.DaoImpl.DaoIntForAdmin;
 import com.DaoImpl.ImplOfAdminInf;
 import com.Exceptions.BidException;
@@ -186,12 +188,15 @@ public class AdminFunctionalities {
 			 
 			 
 	     case 6 : 
-	    	 
+	    	 System.out.println();
 	    	 System.out.println("Please put Vender Id for which you want to assign bid...");
 	    	 int id = sc.nextInt();
 			try {
 				BidTenderDTO bt = ad.assignVendor(id);
-				System.out.println("Tender Assigned successfully. All details releted to that are here...");
+			
+				System.out.println();
+				System.out.println( "Tender Assigned successfully. All details releted to that are here...");
+				
 				System.out.println("Tender Id --> "+bt.getTenderid());
 				System.out.println("Tender Name --> "+bt.getTname());
 				System.out.println("Tender Amount --> "+bt.getTamount());
@@ -213,7 +218,13 @@ public class AdminFunctionalities {
 	    	 
 	    	 System.out.println("Thanks visiting us, Have a nice day..");
 	    	 break;
+	    default :
+	    	
+	    	System.out.println("Sorry, Option not found. Please put Right option..");
+	    	 AdminFunctionalities.Choise();
 		 }
+		 
+		 sc.close();
 	 }
 	 
 	 static void Choise() {
@@ -225,7 +236,7 @@ public class AdminFunctionalities {
 			 AdminFunctionalities ad = new AdminFunctionalities();
 			 ad.getFunctions();;
 			}else {
-				System.out.println("Thanks visiting us, Have a nice day..");
+				System.out.println("Thanks for visiting us, Have a nice day..");
 			}
 			sc.close();
 	 }
