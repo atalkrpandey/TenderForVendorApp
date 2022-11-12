@@ -11,6 +11,7 @@ import com.BeanClasses.BidBean;
 import com.BeanClasses.BidTenderDTO;
 import com.BeanClasses.TenderBean;
 import com.BeanClasses.VendorBean;
+import com.ColorAndModel.ConsoleColors;
 import com.Exceptions.AdminSignInException;
 import com.Exceptions.BidException;
 import com.Exceptions.TenderException;
@@ -31,7 +32,7 @@ public class ImplOfAdminInf implements DaoIntForAdmin {
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				String name = rs.getString("adminname");
-				System.out.println("Hello, Wellcome to you MR. "+name);
+				System.out.println(ConsoleColors.GREEN+"Hello, Wellcome to you MR. "+name+ConsoleColors.WHITE);
 				mass = "You have logined successfully..";
 			}else {
 				throw new AdminSignInException("Worng email or password.");
@@ -215,13 +216,22 @@ List<BidBean> list = new ArrayList<>();
 		String tname;
 		try(Connection conn = DbUtil.provideConnection()) {
 			
-			PreparedStatement ps = conn.prepareStatement("select vendorid, bidid,min(bidamount) from bids");
-			
+			PreparedStatement ps = conn.prepareStatement("select vendorid, bidid,min(bidamount) from bids where tenderid=?");
+			ps.setInt(1, tenderid);
 			ResultSet rs =  ps.executeQuery();
 			if(rs.next()) {
 				vendorid = rs.getInt("vendorid");
 				bidid = rs.getInt("bidid");
 				bamount = rs.getInt("min(bidamount)");
+				PreparedStatement ps11 = conn.prepareStatement("select tenderamount from tenders where tenderid=?");
+				ps11.setInt(1, tenderid);
+				ResultSet r11 =ps11.executeQuery();
+				if(r11.next()) {
+					int amount = r11.getInt("tenderamount");
+					if(bamount>amount) {
+						throw new TenderException("No Any Bid is there which Bid amount is less then tender amount..");
+					}
+				}
 			
 				try(Connection conn1 = DbUtil.provideConnection()) {
 					
@@ -241,10 +251,18 @@ List<BidBean> list = new ArrayList<>();
 							
 						ResultSet rs3 =	ps3.executeQuery();
 						if(rs3.next()) {
+							
+							PreparedStatement ps4 = conn2.prepareStatement("select * from vendors where venderid=?");
+                            ps4.setInt(1, vendorid);
+                            ResultSet r = ps4.executeQuery();
+                            String name=null;
+                            if(r.next()) {
+                               name = r.getString("vendorname");
+                            }
 							tamount = rs3.getInt("tenderamount");
 							tname = rs3.getString("tendername");
 							bt = new BidTenderDTO(tenderid,tname,bidid,vendorid,bamount,tamount);
-							
+						    bt.setVname(name);
 							try(Connection con = DbUtil.provideConnection()) {
 								
 								
@@ -273,7 +291,7 @@ List<BidBean> list = new ArrayList<>();
 							throw new TenderException(e.getMessage());
 						}
 					}else {
-						throw new TenderException("This Tender Id not found In the system...");
+						throw new TenderException("This Tender Id did not found in the system...");
 					}
 					
 				} catch (SQLException e) {
@@ -282,7 +300,7 @@ List<BidBean> list = new ArrayList<>();
 				}
 				
 			}else {
-				throw new TenderException("No Any bid application in the system...");
+				throw new TenderException("This tender Id did not founnd in the system...");
 			}
 			
 		} catch (SQLException e) {

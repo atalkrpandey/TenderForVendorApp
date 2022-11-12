@@ -25,13 +25,14 @@ public class AdminLog {
 		try {
 			String massage = da.loginAdmin(email, password);
 			if(massage!=null) {
-				System.out.println(massage);
+				System.out.println(ConsoleColors.GREEN+massage+ConsoleColors.WHITE);
 				AdminFunctionalities a1 = new AdminFunctionalities();
 				a1.getFunctions();
 				
 			}
 		} catch (AdminSignInException e) {
 			// TODO Auto-generated catch block
+			System.out.println();
 			System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 			System.out.println(ConsoleColors.BANANA_YELLOW+"Please Put YES if want to try again OR No for exit..."+ConsoleColors.WHITE);
 			String res = sc.nextLine();
@@ -41,7 +42,7 @@ public class AdminLog {
 			 ad.AdminLogin();
 			}else {
 				System.out.println();
-				System.out.println(ConsoleColors.ORANGE+"Thanks visiting, Have a nice day.."+ConsoleColors.WHITE);
+				System.out.println(ConsoleColors.ORANGE+"Thanks for visiting us, Have a nice day.."+ConsoleColors.WHITE);
 			}
 		}
 		sc.close();

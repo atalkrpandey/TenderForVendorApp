@@ -5,56 +5,59 @@ import java.util.Scanner;
 
 import com.BeanClasses.BidBean;
 import com.BeanClasses.TenderBean;
+import com.ColorAndModel.ConsoleColors;
 import com.DaoImpl.DaoIntForVendor;
 import com.DaoImpl.VendorInterfaceIMP;
 import com.Exceptions.BidException;
 import com.Exceptions.TenderException;
 
 public class VendorFunctionalities {
-
+       static int vdid = 0;
 	  public void getfunctionalities(int vid) {
+		   vdid = vid;
 		  Scanner sc = new Scanner(System.in);
-		  System.out.println("Welcome again, Lot of functionalities are there for you..");
-		  System.out.println("You can perform any operation by putting there serial No. at bottom (like 1,2,3..)");
+		  System.out.println();
+		  System.out.println(ConsoleColors.GREEN+"Welcome again, Lot of functionalities are there for you.."+ConsoleColors.WHITE);
+		  System.out.println(ConsoleColors.BANANA_YELLOW+"You can perform any operation by putting 1 to 5 at Bottom."+ConsoleColors.WHITE);
 		  System.out.println("1. View all the Tenders.");
 		  System.out.println("2. Place a Bid against a Tender.");
 		  System.out.println("3. View status of a Bid(Whether Selected or Not).");
 		  System.out.println("4. View his own Bid History.");
 		  System.out.println("5. Exit.");
 		  
-		  System.out.println("Put your choise here...");
+		  System.out.println(ConsoleColors.BANANA_YELLOW+"Put your choise here..."+ConsoleColors.WHITE);
 		  
 		  int res = sc.nextInt();
 		  DaoIntForVendor ad = new VendorInterfaceIMP();
 		  switch(res) {
 		  
 		  case 1: 
-			  
+			          System.out.println();
 			  try {
 					List<TenderBean> list = ad.getAllTenders();
-					  System.out.println("Here, all the list of Tenders in system...");
+					  System.out.println(ConsoleColors.BANANA_YELLOW+"List of All the Tenders..."+ConsoleColors.WHITE);
 				  for(TenderBean v : list) {
 					
-					  System.out.println("Tender Id -> "+v.getTid());        
-					  System.out.println("Tender Name -> "+v.getTname());
-					  System.out.println("Tender Amount -> "+v.getTamount());
+					  System.out.println(ConsoleColors.ORANGE+"Tender Id -> "+ConsoleColors.WHITE+v.getTid());        
+					  System.out.println(ConsoleColors.ORANGE+"Tender Name -> "+ConsoleColors.WHITE+v.getTname());
+					  System.out.println(ConsoleColors.ORANGE+"Tender Amount -> "+ConsoleColors.WHITE+v.getTamount());
 					  if(v.isStatus()) {
-						  System.out.println("Tender status -> Assigned");  
+						  System.out.println(ConsoleColors.ORANGE+"Tender status ->"+ConsoleColors.WHITE+" Assigned");  
 					  }else {
-						  System.out.println("Tender status -> Pending"); 
+						  System.out.println(ConsoleColors.ORANGE+"Tender status ->"+ConsoleColors.WHITE+" Pending"); 
 					  }
 					 if(v.getBidid()==0) {
-						 System.out.println("Tender final bid --> NA");
-						 System.out.println("Vender Id who assigned for tender --> NA");
+						 System.out.println(ConsoleColors.ORANGE+"Tender final bid -->"+ConsoleColors.WHITE+" NA");
+						 System.out.println(ConsoleColors.ORANGE+"Vender Id who assigned for tender -->"+ConsoleColors.WHITE+" NA");
 					 }else {
-						 System.out.println("Tender final bid Id --> "+v.getBidid());
-						 System.out.println("Vender Id who assigned for tender --> "+v.getVendorid());
+						 System.out.println(ConsoleColors.ORANGE+"Tender final bid Id --> "+ConsoleColors.WHITE+v.getBidid());
+						 System.out.println(ConsoleColors.ORANGE+"Vender Id who assigned for tender --> "+ConsoleColors.WHITE+v.getVendorid());
 					 }
-					  System.out.println("---------------------------------");
+					  System.out.println(ConsoleColors.CYAN+"---------------------------------"+ConsoleColors.WHITE);
 				  }
 				} catch (TenderException e) {
 					// TODO Auto-generated catch block
-				    System.out.println(e.getMessage());
+				    System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 				}
 				 
 				 VendorFunctionalities.Choise();
@@ -62,12 +65,12 @@ public class VendorFunctionalities {
 			  break;
 			  
 		  case 2: 
+			  System.out.println();
+			  System.out.println(ConsoleColors.BANANA_YELLOW+"Please fill All the Details of Your Bid.."+ConsoleColors.WHITE);
 			  
-			  System.out.println("Please fill All the Details of Your Bid..");
-			  
-				 System.out.println("Tender Id for which you want to fill bid..");
+				 System.out.println(ConsoleColors.CYAN+"Tender Id for which you want to fill bid..");
 				 int tid = sc.nextInt();
-				 System.out.println("Bid Amount...");
+				 System.out.println("Bid Amount..."+ConsoleColors.WHITE);
 				 int amount = sc.nextInt();
 				 sc.nextLine();
 				
@@ -76,12 +79,13 @@ public class VendorFunctionalities {
 				 try {
 					String mass = ad.addNewBid(t1);
 					if(mass!=null) {
-						System.out.println(mass);
+						System.out.println(ConsoleColors.GREEN+mass+ConsoleColors.WHITE);
 						VendorFunctionalities.Choise();
 					}
 				} catch (BidException e) {
 					// TODO Auto-generated catch block
-				   System.out.println(e.getMessage());
+					System.out.println();
+				   System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 				   VendorFunctionalities.Choise();
 				   
 				}
@@ -90,26 +94,28 @@ public class VendorFunctionalities {
 			  
 			  
 		  case 3:
-			  System.out.println("Select Bid Id which status you want to see...");
+			  System.out.println();
+			  System.out.println(ConsoleColors.CYAN+"Select Bid Id which status you want to see...");
 			  int bid = sc.nextInt();
 			  
 			  try {
 				BidBean bd = ad.getStatusOfBid(bid);
-				System.out.println("Here, All the Detail of bid..");
-				System.out.println("Bid Id --> "+bd.getBid());
-				System.out.println("Bid Amount --> "+bd.getBamount());
+				System.out.println(ConsoleColors.BANANA_YELLOW+"Here, All the Detail of bid.."+ConsoleColors.WHITE);
+				System.out.println(ConsoleColors.ORANGE+"Bid Id --> "+ConsoleColors.WHITE+bd.getBid());
+				System.out.println(ConsoleColors.ORANGE+"Bid Amount --> "+ConsoleColors.WHITE+bd.getBamount());
 				if(bd.getBstatus()==null) {
-					System.out.println("Bid Status --> Pending");
+					System.out.println(ConsoleColors.ORANGE+"Bid Status -->"+ConsoleColors.WHITE+" Pending");
 				}else {
-				System.out.println("Bid Status -->"+bd.getBstatus());
+				System.out.println(ConsoleColors.ORANGE+"Bid Status -->"+ConsoleColors.WHITE+bd.getBstatus());
 				}
-				System.out.println("Bid Tender Id --> "+bd.getTid());
-				System.out.println("Bid Vendor Id --> "+bd.getVid());
+				System.out.println(ConsoleColors.ORANGE+"Bid Tender Id --> "+ConsoleColors.WHITE+bd.getTid());
+				System.out.println(ConsoleColors.ORANGE+"Bid Vendor Id --> "+ConsoleColors.WHITE+bd.getVid());
 				 
 				
 			} catch (BidException e) {
 				// TODO Auto-generated catch block
-				System.out.println(e.getMessage());
+				System.out.println();
+				System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 			}
 			  
 			  VendorFunctionalities.Choise();
@@ -117,25 +123,26 @@ public class VendorFunctionalities {
 			  break;
 			  
 		  case 4: 
-			  
+			    System.out.println();
 			try {
 				List<BidBean> bd = ad.getBidOFVendor(vid);
 				for(BidBean bd1 : bd) {
-				System.out.println("Here, All the Detail of Your bids..");
-				System.out.println("Bid Id --> "+bd1.getBid());
-				System.out.println("Bid Amount --> "+bd1.getBamount());
+				System.out.println(ConsoleColors.BANANA_YELLOW+"Here, All the Detail of Your bids.."+ConsoleColors.WHITE);
+				System.out.println(ConsoleColors.ORANGE+"Bid Id --> "+ConsoleColors.WHITE+bd1.getBid());
+				System.out.println(ConsoleColors.ORANGE+"Bid Amount --> "+ConsoleColors.WHITE+bd1.getBamount());
 				if(bd1.getBstatus()==null) {
-					System.out.println("Bid Status --> Pending");
+					System.out.println(ConsoleColors.ORANGE+"Bid Status -->"+ConsoleColors.WHITE+" Pending");
 				}else {
-				System.out.println("Bid Status -->"+bd1.getBstatus());
+				System.out.println(ConsoleColors.ORANGE+"Bid Status -->"+ConsoleColors.WHITE+bd1.getBstatus());
 				}
-				System.out.println("Bid Tender Id --> "+bd1.getTid());
-				System.out.println("Bid Vendor Id --> "+bd1.getVid());
+				System.out.println(ConsoleColors.ORANGE+"Bid Tender Id --> "+ConsoleColors.WHITE+bd1.getTid());
+				System.out.println(ConsoleColors.ORANGE+"Bid Vendor Id --> "+ConsoleColors.WHITE+bd1.getVid());
 				System.out.println("----------------------------------------");
 				}
 			} catch (BidException e) {
 				// TODO Auto-generated catch block
-				System.out.println(e.getMessage());
+				System.out.println();
+				System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 			}
 			  
 			 VendorFunctionalities.Choise();
@@ -143,24 +150,31 @@ public class VendorFunctionalities {
 			  break;
 			  
 		  case 5: 
-			  
-			  System.out.println("Thanks for visiting us, Have a nice day..");
+			  System.out.println();
+			  System.out.println(ConsoleColors.ORANGE+"Thanks for visiting us, Have a nice day.."+ConsoleColors.WHITE);
 		    	
 			  break;
+			  
+		  default :
+			  System.out.println(ConsoleColors.RED+"Worng Option, Please fill right Option."+ConsoleColors.WHITE);
+			  VendorFunctionalities.Choise();
 		  }
+		  
+		 sc.close();
 		  
 	  }
 	  
 	  static void Choise() {
 			 Scanner sc = new Scanner(System.in);
-			 System.out.println("Please Put YES if want to More operations OR No for exit...");
+			 System.out.println(ConsoleColors.BANANA_YELLOW+"Please Put YES if want to perform More operations OR No for exit..."+ConsoleColors.WHITE);
 				String res = sc.nextLine();
 				res = res.toUpperCase();
 				if(res.equals("YES")) {
-				 AdminFunctionalities ad = new AdminFunctionalities();
-				 ad.getFunctions();;
+				 VendorFunctionalities ad = new VendorFunctionalities();
+				 ad.getfunctionalities(vdid);;;
 				}else {
-					System.out.println("Thanks visiting us, Have a nice day..");
+					System.out.println();
+					System.out.println(ConsoleColors.ORANGE+"Thanks for visiting us, Have a nice day.."+ConsoleColors.WHITE);
 				}
 				sc.close();
 		 }

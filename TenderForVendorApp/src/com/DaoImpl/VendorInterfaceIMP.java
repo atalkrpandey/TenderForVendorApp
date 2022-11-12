@@ -10,6 +10,7 @@ import java.util.List;
 import com.BeanClasses.BidBean;
 import com.BeanClasses.TenderBean;
 import com.BeanClasses.VendorBean;
+import com.ColorAndModel.ConsoleColors;
 import com.Exceptions.BidException;
 import com.Exceptions.TenderException;
 import com.Exceptions.VendorAuthenticateException;
@@ -30,11 +31,11 @@ public class VendorInterfaceIMP implements DaoIntForVendor {
 		   ResultSet re = ps.executeQuery();
 		   
 		   if(re.next()) {
-			   System.out.println("Hello Mr. "+re.getString("vendorname")+" You have logined successfully..");
+			   System.out.println(ConsoleColors.GREEN+"Hello Mr. "+re.getString("vendorname")+" You have logined successfully.."+ConsoleColors.WHITE);
 			   vid = re.getInt("venderid");
 			 
 		   }else {
-			   throw new VendorAuthenticateException("You Have filed wrong credentials..");
+			   throw new VendorAuthenticateException("You Have filled wrong credentials, Please fill Right UserName and Password..");
 		   }
 		
 	} catch (SQLException e) {

@@ -8,7 +8,16 @@ public class BidTenderDTO {
 	private int vendorid;
 	private int bidamount;
 	private int tamount;
+	private String vname;
 	
+	public String getVname() {
+		return vname;
+	}
+
+	public void setVname(String vname) {
+		this.vname = vname;
+	}
+
 	public BidTenderDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -21,6 +30,7 @@ public class BidTenderDTO {
 		this.vendorid = vendorid;
 		this.bidamount = bidamount;
 		this.tamount = tamount;
+		
 	}
 
 	public int getTenderid() {
