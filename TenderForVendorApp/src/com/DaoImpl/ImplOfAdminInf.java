@@ -32,10 +32,10 @@ public class ImplOfAdminInf implements DaoIntForAdmin {
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				String name = rs.getString("adminname");
-				System.out.println(ConsoleColors.GREEN+"Hello, Wellcome to you MR. "+name+ConsoleColors.WHITE);
+				System.out.println(ConsoleColors.GREEN+"Hello, Weicome Mr. "+name.toUpperCase()+ConsoleColors.WHITE);
 				mass = "You have logined successfully..";
 			}else {
-				throw new AdminSignInException("Worng email or password.");
+				throw new AdminSignInException("Invalid email or password.");
 			}
 			
 			
@@ -95,7 +95,7 @@ try(Connection conn = DbUtil.provideConnection()){
 			 
 			}
 			if(list.size()==0) {
-				throw new VendorException("Any Record not found..");
+				throw new VendorException("No record found..");
 			}
 			
 		}catch(SQLException e) {
@@ -120,7 +120,7 @@ try(Connection conn = DbUtil.provideConnection()){
 				    if(re>0) {
 				    	mass = "Tender Added Successfully..";
 				    }else {
-				    	throw new TenderException("Unable to add due to worng credentials...");
+				    	throw new TenderException("Unable to add due to Invalid credentials...");
 				    }
 					
 				}catch(SQLException e) {
@@ -158,7 +158,7 @@ try(Connection conn = DbUtil.provideConnection()){
 					 
 					}
 					if(list.size()==0) {
-						throw new TenderException("Any Record not found..");
+						throw new TenderException("No record found..");
 					}
 					
 				}catch(SQLException e) {
@@ -195,7 +195,7 @@ List<BidBean> list = new ArrayList<>();
 					 
 					}
 					if(list.size()==0) {
-						throw new BidException("Any Record not found..");
+						throw new BidException("No record found..");
 					}
 					
 				}catch(SQLException e) {

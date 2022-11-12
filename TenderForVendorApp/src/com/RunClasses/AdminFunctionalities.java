@@ -57,7 +57,7 @@ public class AdminFunctionalities {
 			
 			  flag = pass.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$");
 			 if(flag==false) {
-				 System.out.println(ConsoleColors.RED_BRIGHT+"Wrong Password, Please follow the instructions and try again..."+ConsoleColors.CYAN);
+				 System.out.println(ConsoleColors.RED_BRIGHT+"Invalid Password, Please follow the instructions and try again..."+ConsoleColors.CYAN);
 			 }
 			 }
 			 VendorBean v1 = new VendorBean(0,name,email,phone,pass);
@@ -66,12 +66,12 @@ public class AdminFunctionalities {
 				String mass = ad.addNewVendor(v1);
 				if(mass!=null) {
 					System.out.println(ConsoleColors.GREEN+mass+ConsoleColors.WHITE);
-					AdminFunctionalities.Choise();
+					AdminFunctionalities.choice();
 				}
 			} catch (VendorException e) {
 				// TODO Auto-generated catch block
 			   System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
-			   AdminFunctionalities.Choise();
+			   AdminFunctionalities.choice();
 			   
 			}
 			  break;
@@ -97,7 +97,7 @@ public class AdminFunctionalities {
 			    System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 			}
 			 
-			 AdminFunctionalities.Choise();
+			 AdminFunctionalities.choice();
 			 
 			 break;
 			 
@@ -118,12 +118,12 @@ public class AdminFunctionalities {
 				String mass = ad.createNewTender(t1);
 				if(mass!=null) {
 					System.out.println(ConsoleColors.GREEN+mass+ConsoleColors.WHITE);
-					AdminFunctionalities.Choise();
+					AdminFunctionalities.choice();
 				}
 			} catch (TenderException e) {
 				// TODO Auto-generated catch block
 			   System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
-			   AdminFunctionalities.Choise();
+			   AdminFunctionalities.choice();
 			   
 			}
 			 
@@ -159,7 +159,7 @@ public class AdminFunctionalities {
 				    System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 				}
 				 
-				 AdminFunctionalities.Choise();
+				 AdminFunctionalities.choice();
 			 
 			 
 			 break;
@@ -167,7 +167,7 @@ public class AdminFunctionalities {
 			 
 		 case 5 :  
 			  System.out.println();
-			  System.out.println(ConsoleColors.CYAN+"Plese, Put the TenderId for which you want to find the bids.."+ConsoleColors.WHITE);
+			  System.out.println(ConsoleColors.CYAN+"Plese, Enter the TenderId for which you want to find the bids.."+ConsoleColors.WHITE);
 			  int tid = sc.nextInt();
 			 
 			 try {
@@ -195,14 +195,14 @@ public class AdminFunctionalities {
 				    System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 				}
 				 
-				 AdminFunctionalities.Choise();
+				 AdminFunctionalities.choice();
 			 
 			 break;
 			 
 			 
 	     case 6 : 
 	    	 System.out.println();
-	    	 System.out.println(ConsoleColors.CYAN+"Please, Put the Tender Id for which you want to assign bid..."+ConsoleColors.WHITE);
+	    	 System.out.println(ConsoleColors.CYAN+"Please, Enter the Tender Id for which you want to assign bid..."+ConsoleColors.WHITE);
 	    	 int id = sc.nextInt();
 			try {
 				BidTenderDTO bt = ad.assignVendor(id);
@@ -223,7 +223,7 @@ public class AdminFunctionalities {
 				  System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.RED);
 			}
 	    	 
-			 AdminFunctionalities.Choise();
+			 AdminFunctionalities.choice();
 			 
 			 break;
 			 
@@ -235,17 +235,17 @@ public class AdminFunctionalities {
 	    	 break;
 	     default :
 		    	
-		    	System.out.println(ConsoleColors.RED+"Sorry, Option did not found. Please put Right option.."+ConsoleColors.WHITE);
-		    	 AdminFunctionalities.Choise();
+		    	System.out.println(ConsoleColors.RED+"Sorry, Option did not found. Please Enter Right option.."+ConsoleColors.WHITE);
+		    	 AdminFunctionalities.choice();
 		    	 break;
 		 }
 		 
 		 sc.close();
 	 }
 	 
-	 static void Choise() {
+	 static void choice() {
 		 Scanner sc = new Scanner(System.in);
-		 System.out.println(ConsoleColors.BANANA_YELLOW+"Please, Put YES if want to More operations OR No for exit..."+ConsoleColors.WHITE);
+		 System.out.println(ConsoleColors.BANANA_YELLOW+"Please, Enter YES if want to More operations OR No for exit..."+ConsoleColors.WHITE);
 			String res = sc.nextLine();
 			res = res.toUpperCase();
 			if(res.equals("YES")) {

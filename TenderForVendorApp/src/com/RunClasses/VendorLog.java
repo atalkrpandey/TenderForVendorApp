@@ -16,9 +16,9 @@ public class VendorLog {
 		System.out.println();
 		System.out.println(ConsoleColors.BANANA_YELLOW+"Please Login your Account first.. "+ConsoleColors.WHITE);
 		System.out.println();
-		System.out.println("Put your UserName here...");
+		System.out.println("Enter your UserName here...");
 		String name = sc.nextLine();
-		System.out.println("Put your password here...");
+		System.out.println("Enter your password here...");
 		String password = sc.nextLine();
 		
 		DaoIntForVendor da = new VendorInterfaceIMP();
@@ -33,7 +33,7 @@ public class VendorLog {
 		} catch (VendorAuthenticateException e) {
 			// TODO Auto-generated catch block
 			System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
-			System.out.println(ConsoleColors.BANANA_YELLOW+"Please Put YES if want to try again OR No for exit..."+ConsoleColors.WHITE);
+			System.out.println(ConsoleColors.BANANA_YELLOW+"Please Enter YES if want to try again OR No for exit..."+ConsoleColors.WHITE);
 			String res = sc.nextLine();
 			res = res.toUpperCase();
 			if(res.equals("YES")) {

@@ -35,7 +35,7 @@ public class VendorInterfaceIMP implements DaoIntForVendor {
 			   vid = re.getInt("venderid");
 			 
 		   }else {
-			   throw new VendorAuthenticateException("You Have filled wrong credentials, Please fill Right UserName and Password..");
+			   throw new VendorAuthenticateException("You Have filled Invalid credentials, Please fill Right UserName and Password..");
 		   }
 		
 	} catch (SQLException e) {
@@ -73,7 +73,7 @@ public class VendorInterfaceIMP implements DaoIntForVendor {
 					 
 					}
 					if(list.size()==0) {
-						throw new TenderException("Any Record not found..");
+						throw new TenderException("No record found..");
 					}
 					
 				}catch(SQLException e) {
@@ -99,7 +99,7 @@ public class VendorInterfaceIMP implements DaoIntForVendor {
 				    if(re>0) {
 				    	mass = "Bid Added Successfully..";
 				    }else {
-				    	throw new BidException("Unable to add due to worng credentials...");
+				    	throw new BidException("Unable to add due to Invalid credentials...");
 				    }
 					
 				}catch(SQLException e) {
@@ -162,7 +162,7 @@ public class VendorInterfaceIMP implements DaoIntForVendor {
 						 
 						}
 						if(list.size()==0) {
-							throw new BidException("Any Record not found..");
+							throw new BidException("No record found..");
 						}
 						
 					}catch(SQLException e) {

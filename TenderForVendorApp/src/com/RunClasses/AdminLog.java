@@ -16,9 +16,9 @@ public class AdminLog {
 		System.out.println();
 		System.out.println(ConsoleColors.BANANA_YELLOW+"Please Login your Account first.. "+ConsoleColors.WHITE);
 		System.out.println();
-		System.out.println("Put your email Id here...");
+		System.out.println("Enter your email Id here...");
 		String email = sc.nextLine();
-		System.out.println("Put your password here...");
+		System.out.println("Enter your password here...");
 		String password = sc.nextLine();
 		
 		DaoIntForAdmin da = new ImplOfAdminInf();
@@ -34,7 +34,7 @@ public class AdminLog {
 			// TODO Auto-generated catch block
 			System.out.println();
 			System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
-			System.out.println(ConsoleColors.BANANA_YELLOW+"Please Put YES if want to try again OR No for exit..."+ConsoleColors.WHITE);
+			System.out.println(ConsoleColors.BANANA_YELLOW+"Please Enter YES if want to try again OR No for exit..."+ConsoleColors.WHITE);
 			String res = sc.nextLine();
 			res = res.toUpperCase();
 			if(res.equals("YES")) {

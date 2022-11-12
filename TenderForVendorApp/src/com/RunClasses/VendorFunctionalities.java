@@ -18,14 +18,14 @@ public class VendorFunctionalities {
 		  Scanner sc = new Scanner(System.in);
 		  System.out.println();
 		  System.out.println(ConsoleColors.GREEN+"Welcome again, Lot of functionalities are there for you.."+ConsoleColors.WHITE);
-		  System.out.println(ConsoleColors.BANANA_YELLOW+"You can perform any operation by putting 1 to 5 at Bottom."+ConsoleColors.WHITE);
+		  System.out.println(ConsoleColors.BANANA_YELLOW+"You can perform any operation by Enterting 1 to 5 at Bottom."+ConsoleColors.WHITE);
 		  System.out.println("1. View all the Tenders.");
 		  System.out.println("2. Place a Bid against a Tender.");
 		  System.out.println("3. View status of a Bid(Whether Selected or Not).");
 		  System.out.println("4. View his own Bid History.");
 		  System.out.println("5. Exit.");
 		  
-		  System.out.println(ConsoleColors.BANANA_YELLOW+"Put your choise here..."+ConsoleColors.WHITE);
+		  System.out.println(ConsoleColors.BANANA_YELLOW+"Enter your Choice here..."+ConsoleColors.WHITE);
 		  
 		  int res = sc.nextInt();
 		  DaoIntForVendor ad = new VendorInterfaceIMP();
@@ -60,7 +60,7 @@ public class VendorFunctionalities {
 				    System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 				}
 				 
-				 VendorFunctionalities.Choise();
+				 VendorFunctionalities.Choice();
 			  
 			  break;
 			  
@@ -80,13 +80,13 @@ public class VendorFunctionalities {
 					String mass = ad.addNewBid(t1);
 					if(mass!=null) {
 						System.out.println(ConsoleColors.GREEN+mass+ConsoleColors.WHITE);
-						VendorFunctionalities.Choise();
+						VendorFunctionalities.Choice();
 					}
 				} catch (BidException e) {
 					// TODO Auto-generated catch block
 					System.out.println();
 				   System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
-				   VendorFunctionalities.Choise();
+				   VendorFunctionalities.Choice();
 				   
 				}
 				 
@@ -118,7 +118,7 @@ public class VendorFunctionalities {
 				System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 			}
 			  
-			  VendorFunctionalities.Choise();
+			  VendorFunctionalities.Choice();
 			  
 			  break;
 			  
@@ -145,7 +145,7 @@ public class VendorFunctionalities {
 				System.out.println(ConsoleColors.RED+e.getMessage()+ConsoleColors.WHITE);
 			}
 			  
-			 VendorFunctionalities.Choise();
+			 VendorFunctionalities.Choice();
 			  
 			  break;
 			  
@@ -156,17 +156,17 @@ public class VendorFunctionalities {
 			  break;
 			  
 		  default :
-			  System.out.println(ConsoleColors.RED+"Worng Option, Please fill right Option."+ConsoleColors.WHITE);
-			  VendorFunctionalities.Choise();
+			  System.out.println(ConsoleColors.RED+"Invalid Option, Please fill right Option."+ConsoleColors.WHITE);
+			  VendorFunctionalities.Choice();
 		  }
 		  
 		 sc.close();
 		  
 	  }
 	  
-	  static void Choise() {
+	  static void Choice() {
 			 Scanner sc = new Scanner(System.in);
-			 System.out.println(ConsoleColors.BANANA_YELLOW+"Please Put YES if want to perform More operations OR No for exit..."+ConsoleColors.WHITE);
+			 System.out.println(ConsoleColors.BANANA_YELLOW+"Please Enter YES if want to perform More operations OR No for exit..."+ConsoleColors.WHITE);
 				String res = sc.nextLine();
 				res = res.toUpperCase();
 				if(res.equals("YES")) {
