@@ -15,7 +15,7 @@ There are total 4 tables which used for creating this app.
 3. Tenders table
 4. Bids table
 
-![App Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/atalkrpandey/abashed-store-5188/blob/6971790f33b2b81332066c8cbb5e777d4bccc53f/ERDaigram.jpeg))
+![App Screenshot](//.ERDaigram.gpeg)
 
 
 ## Flow Chart of App
