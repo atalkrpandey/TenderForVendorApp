@@ -4,7 +4,7 @@ A Tender Management app where all the information releted to the tenders of orga
  
 
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Logo](https://i.ibb.co/LrThcpD/Whats-App-Image-2022-11-08-at-5-40-12-PM.jpg)
 
 
 ## Entity Relationship Daigram
