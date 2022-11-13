@@ -54,7 +54,7 @@ MySQL |  Basic Java | Regular Expression | Serialisation | Functional Programmin
 
 ## Tools
 
-STS | GitHub | MySQL
+STS | Github | MySQL
 ## About Project
 
 A Individual project which developed by Atal Kr Pandey with in 4 days. This a console based application where two kind of persons can login and perform operation 1. Admin and 2. Vendor.
