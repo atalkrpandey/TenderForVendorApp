@@ -20,7 +20,7 @@ There are total 4 tables which used for creating this app.
 
 ## Flow Chart of App
 
- ![App Screenshot](https://i.ibb.co/9hXs7d9/Whats-App-Image-2022-11-13-at-9-37-34-AM.jpg)
+ ![App Screenshot](https://i.ibb.co/8YmVBq8/pre22.png)
 
 ![App Screenshot](https://i.ibb.co/qsKnn0T/Whats-App-Image-2022-11-13-at-9-43-36-AM.jpg)
  
