@@ -15,7 +15,7 @@ There are total 4 tables which used for creating this app.
 3. Tenders table
 4. Bids table
 
-![App Screenshot](//.ERDaigram.gpeg)
+![App Screenshot](//ERDaigram.jpeg)
 
 
 ## Flow Chart of App
