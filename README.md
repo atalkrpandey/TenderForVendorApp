@@ -15,7 +15,7 @@ There are total 4 tables which used for creating this app.
 3. Tenders table
 4. Bids table
 
-![App Screenshot](https://i.ibb.co/8XMvTb3/Whats-App-Image-2022-11-13-at-9-42-48-AM.jpg)
+![App Screenshot](https://i.ibb.co/3mzdbVG/Tenderfor-Vendor.png)
 
 
 ## Flow Chart of App
